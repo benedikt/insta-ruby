@@ -1,0 +1,55 @@
+# Generated from lib/insta/inline/file_patcher.rb with RBS::Inline
+
+module Insta
+  module Inline
+    class FilePatcher
+      # : (String, Array[Inline::pending_entry]) -> String
+      def self.patch: (String, Array[Inline::pending_entry]) -> String
+
+      # : (String, Array[Edit]) -> String
+      def self.apply_edits: (String, Array[Edit]) -> String
+
+      # : (String, Prism::CallNode, String, Symbol) -> Edit?
+      def self.build_edit: (String, Prism::CallNode, String, Symbol) -> Edit?
+
+      # : (Prism::Node) -> bool
+      def self.heredoc_node?: (Prism::Node) -> bool
+
+      # : (Prism::ArgumentsNode) -> Prism::Node?
+      def self.find_snapshot_argument: (Prism::ArgumentsNode) -> Prism::Node?
+
+      # : (Prism::StringNode, String) -> Edit?
+      def self.build_string_edit: (Prism::StringNode, String) -> Edit?
+
+      # : (String, Prism::StringNode | Prism::InterpolatedStringNode, String) -> Edit?
+      def self.build_heredoc_edit: (String, Prism::StringNode | Prism::InterpolatedStringNode, String) -> Edit?
+
+      # : (String, Prism::StringNode | Prism::InterpolatedStringNode, String) -> Edit?
+      def self.build_heredoc_to_string_edit: (String, Prism::StringNode | Prism::InterpolatedStringNode, String) -> Edit?
+
+      # : (String, Prism::CallNode, Prism::StringNode, String) -> Edit?
+      def self.build_string_to_heredoc_edit: (String, Prism::CallNode, Prism::StringNode, String) -> Edit?
+
+      # : (String, Prism::CallNode, String) -> Edit?
+      def self.build_insert_edit: (String, Prism::CallNode, String) -> Edit?
+
+      # : (String, Prism::CallNode, Prism::Location, String) -> Edit
+      def self.build_bare_call_insert_edit: (String, Prism::CallNode, Prism::Location, String) -> Edit
+
+      # : (String) -> bool
+      def self.single_line?: (String) -> bool
+
+      # : (Prism::CallNode, Prism::Location, String) -> Edit
+      def self.build_insert_string_edit: (Prism::CallNode, Prism::Location, String) -> Edit
+
+      # : (String, Prism::CallNode, Prism::Location, String) -> Edit
+      def self.build_insert_heredoc_edit: (String, Prism::CallNode, Prism::Location, String) -> Edit
+
+      # : (String, Integer) -> Integer
+      def self.detect_indent: (String, Integer) -> Integer
+
+      # : (String, String) -> void
+      def self.atomic_write: (String, String) -> void
+    end
+  end
+end

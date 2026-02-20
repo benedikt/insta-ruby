@@ -1,0 +1,22 @@
+# Generated from lib/insta/pending_locations.rb with RBS::Inline
+
+module Insta
+  module PendingLocations
+    FILENAME: ::String
+
+    # : (String, String) -> void
+    def self.add: (String, String) -> void
+
+    # : () -> void
+    def self.flush!: () -> void
+
+    # : () -> Hash[String, String]
+    def self.load: () -> Hash[String, String]
+
+    # : () -> void
+    def self.clean!: () -> void
+
+    # : () -> void
+    def self.clear!: () -> void
+  end
+end

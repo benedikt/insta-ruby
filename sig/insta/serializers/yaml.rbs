@@ -1,0 +1,10 @@
+# Generated from lib/insta/serializers/yaml.rb with RBS::Inline
+
+module Insta
+  module Serializers
+    class YAMLSerializer < Base
+      # : (untyped) -> String
+      def self.serialize: (untyped) -> String
+    end
+  end
+end

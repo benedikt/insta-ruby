@@ -1,0 +1,11 @@
+# Generated from lib/insta/update_coordinator.rb with RBS::Inline
+
+module Insta
+  class UpdateCoordinator
+    # : (Symbol) -> void
+    def initialize: (Symbol) -> void
+
+    # : (String, String) -> Symbol
+    def resolve: (String, String) -> Symbol
+  end
+end

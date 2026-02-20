@@ -1,0 +1,8 @@
+# Generated from lib/insta/syntax_highlight.rb with RBS::Inline
+
+module Insta
+  class SyntaxHighlight
+    # : (String, ?colorable: bool) -> String
+    def self.highlight: (String, ?colorable: bool) -> String
+  end
+end

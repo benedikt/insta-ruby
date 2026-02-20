@@ -1,0 +1,28 @@
+# Generated from lib/insta/ansi.rb with RBS::Inline
+
+module Insta
+  module ANSI
+    private
+
+    # : () -> bool
+    def color?: () -> bool
+
+    # : (String) -> String
+    def bold: (String) -> String
+
+    # : (String) -> String
+    def dim: (String) -> String
+
+    # : (String) -> String
+    def red: (String) -> String
+
+    # : (String) -> String
+    def green: (String) -> String
+
+    # : (String) -> String
+    def yellow: (String) -> String
+
+    # : (String) -> String
+    def cyan: (String) -> String
+  end
+end

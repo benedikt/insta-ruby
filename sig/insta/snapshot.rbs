@@ -1,0 +1,37 @@
+# Generated from lib/insta/snapshot.rb with RBS::Inline
+
+module Insta
+  class Snapshot
+    type snapshot_metadata = Hash[String, untyped]
+
+    SEPARATOR: String
+
+    attr_reader content: String
+
+    attr_reader metadata: snapshot_metadata
+
+    # : (String, ?snapshot_metadata) -> void
+    def initialize: (String, ?snapshot_metadata) -> void
+
+    # : (String) -> Snapshot
+    def self.parse: (String) -> Snapshot
+
+    # : () -> String
+    def serialize: () -> String
+
+    # : () -> String?
+    def source: () -> String?
+
+    # : () -> String?
+    def input: () -> String?
+
+    # : () -> String?
+    def description: () -> String?
+
+    # : () -> String?
+    def expression: () -> String?
+
+    # : () -> Hash[String, untyped]?
+    def info: () -> Hash[String, untyped]?
+  end
+end

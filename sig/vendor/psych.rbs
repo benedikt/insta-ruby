@@ -1,0 +1,7 @@
+module Psych
+  class SyntaxError < ::SyntaxError
+  end
+
+  class BadAlias < ::Psych::SyntaxError
+  end
+end

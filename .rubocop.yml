@@ -1,0 +1,96 @@
+AllCops:
+  NewCops: enable
+  SuggestExtensions: false
+  TargetRubyVersion: 3.2
+  Exclude:
+    - 'pkg/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+
+Style/StringLiterals:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/StringLiteralsInInterpolation:
+  Enabled: true
+  EnforcedStyle: double_quotes
+
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+Style/Documentation:
+  Enabled: false
+
+Style/WordArray:
+  Enabled: true
+  EnforcedStyle: brackets
+
+Style/SymbolArray:
+  Enabled: true
+  EnforcedStyle: brackets
+
+Style/BlockDelimiters:
+  Enabled: false
+
+Style/TrailingCommaInHashLiteral:
+  EnforcedStyleForMultiline: diff_comma
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/LeadingCommentSpace:
+  Enabled: false
+
+Layout/LineLength:
+  Max: 160
+  Exclude:
+    - test/**/*_test.rb
+
+Metrics/CyclomaticComplexity:
+  Max: 15
+
+Metrics/MethodLength:
+  Max: 30
+  Exclude:
+    - lib/insta/minitest/assertions.rb
+
+Metrics/AbcSize:
+  Max: 30
+  Exclude:
+    - lib/insta/cli.rb
+
+Metrics/PerceivedComplexity:
+  Max: 15
+
+Metrics/ModuleLength:
+  Exclude:
+    - lib/insta/minitest/assertions.rb
+
+Metrics/ClassLength:
+  Exclude:
+    - lib/insta/cli.rb
+    - lib/insta/inline/file_patcher.rb
+    - test/**/*_test.rb
+
+Metrics/BlockLength:
+  Max: 30
+  Exclude:
+    - Rakefile
+    - "*.gemspec"
+    - "**/*.rake"
+    - test/**/*_test.rb
+
+Metrics/ParameterLists:
+  Exclude:
+    - lib/insta/diff.rb
+    - lib/insta/minitest/assertions.rb
+    - lib/insta/rspec/matchers.rb
+    - lib/insta/snapshot_mismatch_handler.rb
+
+Naming/PredicateMethod:
+  Exclude:
+    - lib/insta/rspec/matchers.rb
+
+Naming/AccessorMethodName:
+  Exclude:
+    - lib/insta/rspec/matchers.rb

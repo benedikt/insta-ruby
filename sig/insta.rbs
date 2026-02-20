@@ -1,0 +1,12 @@
+# Generated from lib/insta.rb with RBS::Inline
+
+module Insta
+  # : () -> Configuration
+  def self.configuration: () -> Configuration
+
+  # : () { (Configuration) -> void } -> void
+  def self.configure: () { (Configuration) -> void } -> void
+
+  # : () -> void
+  def self.reset_configuration!: () -> void
+end

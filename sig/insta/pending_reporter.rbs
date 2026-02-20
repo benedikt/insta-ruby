@@ -1,0 +1,14 @@
+# Generated from lib/insta/pending_reporter.rb with RBS::Inline
+
+module Insta
+  module PendingReporter
+    # : () -> void
+    def self.flush_and_report!: () -> void
+
+    # : () -> void
+    def self.report_pending_files!: () -> void
+
+    # : () -> void
+    def self.report_pending_inline!: () -> void
+  end
+end

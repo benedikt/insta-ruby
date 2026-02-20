@@ -1,0 +1,18 @@
+# Generated from lib/insta/inline/edit.rb with RBS::Inline
+
+module Insta
+  module Inline
+    type pending_entry = { line: Integer, content: String, type: Symbol }
+
+    class Edit
+      attr_reader start_offset: Integer
+
+      attr_reader end_offset: Integer
+
+      attr_reader replacement: String
+
+      # : (Integer, Integer, String) -> void
+      def initialize: (Integer, Integer, String) -> void
+    end
+  end
+end

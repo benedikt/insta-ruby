@@ -1,0 +1,9 @@
+module RSpec
+  module Matchers
+    module Composable
+    end
+  end
+
+  def self.configure: () { (untyped) -> void } -> void
+  def self.current_example: () -> untyped
+end

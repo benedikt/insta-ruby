@@ -1,0 +1,10 @@
+# Generated from lib/insta/ci.rb with RBS::Inline
+
+module Insta
+  module CI
+    CI_ENV_VARS: Array[String]
+
+    # : () -> bool
+    def self.ci?: () -> bool
+  end
+end

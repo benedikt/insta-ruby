@@ -1,0 +1,27 @@
+# Generated from lib/insta/snapshot_file.rb with RBS::Inline
+
+module Insta
+  class SnapshotFile
+    attr_reader base_path: Pathname
+
+    attr_reader extension: String
+
+    # : (String, String, String, ?String?) -> void
+    def initialize: (String, String, String, ?String?) -> void
+
+    # : (?Hash[Symbol, untyped]) -> Pathname
+    def path_for: (?Hash[Symbol, untyped]) -> Pathname
+
+    # : (String) -> Pathname
+    def named_path: (String) -> Pathname
+
+    # : (Pathname) -> Pathname
+    def pending_path: (Pathname) -> Pathname
+
+    # : (Pathname, String, Snapshot::snapshot_metadata) -> void
+    def write: (Pathname, String, Snapshot::snapshot_metadata) -> void
+
+    # : (Pathname) -> Snapshot?
+    def read: (Pathname) -> Snapshot?
+  end
+end

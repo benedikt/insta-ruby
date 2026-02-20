@@ -1,0 +1,68 @@
+# Generated from lib/insta/rspec/matchers.rb with RBS::Inline
+
+module Insta
+  module RSpec
+    module Matchers
+      class MatchSnapshot
+        include ::RSpec::Matchers::Composable
+
+        attr_reader failure_message: String?
+
+        # : (String?) -> void
+        def initialize: (String?) -> void
+
+        # : (untyped) -> bool
+        def matches?: (untyped) -> bool
+
+        # : () -> String
+        def description: () -> String
+
+        private
+
+        # : (untyped, String, String) -> SnapshotFile
+        def resolve_snapshot_file: (untyped, String, String) -> SnapshotFile
+
+        # : (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata) -> bool
+        def handle_new_snapshot: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata) -> bool
+
+        # : (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, String, String?) -> bool
+        def handle_mismatch: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, String, String?) -> bool
+
+        # : (String) -> false
+        def record_failure: (String) -> false
+      end
+
+      class MatchInlineSnapshot
+        include ::RSpec::Matchers::Composable
+
+        attr_reader failure_message: String?
+
+        # : (String?) -> void
+        def initialize: (String?) -> void
+
+        # : (untyped) -> bool
+        def matches?: (untyped) -> bool
+
+        # : () -> String
+        def description: () -> String
+
+        private
+
+        # : (String, Integer, String) -> bool
+        def handle_new_inline_snapshot: (String, Integer, String) -> bool
+
+        # : (String, Integer, String, String) -> bool
+        def handle_inline_mismatch: (String, Integer, String, String) -> bool
+
+        # : (String) -> false
+        def record_failure: (String) -> false
+      end
+
+      # : (?String?) -> MatchSnapshot
+      def match_snapshot: (?String?) -> MatchSnapshot
+
+      # : (?String?) -> MatchInlineSnapshot
+      def match_inline_snapshot: (?String?) -> MatchInlineSnapshot
+    end
+  end
+end

@@ -1,0 +1,5 @@
+# Generated from lib/insta/version.rb with RBS::Inline
+
+module Insta
+  VERSION: String
+end

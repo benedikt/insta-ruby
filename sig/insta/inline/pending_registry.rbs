@@ -1,0 +1,22 @@
+# Generated from lib/insta/inline/pending_registry.rb with RBS::Inline
+
+module Insta
+  module Inline
+    module PendingRegistry
+      # : (file: String, line: Integer, content: String, type: Symbol) -> void
+      def self.add: (file: String, line: Integer, content: String, type: Symbol) -> void
+
+      # : () -> void
+      def self.flush!: () -> void
+
+      # : () -> bool
+      def self.any?: () -> bool
+
+      # : () -> Integer
+      def self.size: () -> Integer
+
+      # : () -> void
+      def self.clear!: () -> void
+    end
+  end
+end

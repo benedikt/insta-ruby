@@ -1,0 +1,5 @@
+module IRB
+  module Color
+    def self.colorize_code: (String, ?complete: bool, ?colorable: bool) -> String
+  end
+end

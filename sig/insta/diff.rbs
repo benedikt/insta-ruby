@@ -1,0 +1,38 @@
+# Generated from lib/insta/diff.rb with RBS::Inline
+
+module Insta
+  class Diff
+    # : () -> Difftastic::Differ
+    def self.differ: () -> Difftastic::Differ
+
+    # : (String, String) -> String
+    def self.diff: (String, String) -> String
+
+    # : (String, String, ?file_extension: String?) -> String
+    def self.diff_with_language: (String, String, ?file_extension: String?) -> String
+
+    # : (String, String, String, ?String?, ?String?, ?file_extension: String?) -> String
+    def self.failure_message: (String, String, String, ?String?, ?String?, ?file_extension: String?) -> String
+
+    # : (String) -> String
+    def self.caller_file_location: (String) -> String
+
+    # : (String) -> String
+    def self.run_test_command: (String) -> String
+
+    # : () -> bool
+    def self.rspec?: () -> bool
+
+    # : () -> bool
+    def self.rails?: () -> bool
+
+    # : () -> bool
+    def self.minitest_cli?: () -> bool
+
+    # : () -> bool
+    def self.mtest?: () -> bool
+
+    # : () -> Integer
+    def self.terminal_width: () -> Integer
+  end
+end

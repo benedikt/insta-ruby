@@ -1,0 +1,150 @@
+# Generated from lib/insta/cli.rb with RBS::Inline
+
+module Insta
+  class CLI
+    include ANSI
+
+    COMMANDS: untyped
+
+    MIN_GAP: Integer
+
+    # : (Array[String]) -> void
+    def initialize: (Array[String]) -> void
+
+    # : () -> void
+    def run: () -> void
+
+    private
+
+    def pluralize: (untyped count, untyped singular, ?untyped plural) -> untyped
+
+    # : () -> void
+    def review: () -> void
+
+    # : (Array[String]) -> void
+    def review_files: (Array[String]) -> void
+
+    # : (String) -> Symbol
+    def review_single_file: (String) -> Symbol
+
+    # : () -> String
+    def prompt_review_action: () -> String
+
+    # : () -> String
+    def review_prompt_line: () -> String
+
+    # : (String) -> void
+    def display_source_context: (String) -> void
+
+    # : (String) -> String?
+    def find_test_file: (String) -> String?
+
+    # : (String, String) -> Integer?
+    def find_test_line: (String, String) -> Integer?
+
+    # : (String) -> void
+    def display_caller_context: (String) -> void
+
+    # : (String, String) -> void
+    def display_snapshot_paths: (String, String) -> void
+
+    # : () -> void
+    def print_review_help: () -> void
+
+    # : (String, Integer) -> void
+    def print_source_lines: (String, Integer) -> void
+
+    # : (Array[String], Integer, Integer) -> Array[String]
+    def highlight_lines: (Array[String], Integer, Integer) -> Array[String]
+
+    # : (String, String) -> void
+    def display_diff: (String, String) -> void
+
+    # : (String, String) -> Symbol
+    def process_review_response: (String, String) -> Symbol
+
+    # : (Array[Inline::pending_store_entry]) -> void
+    def review_inline_entries: (Array[Inline::pending_store_entry]) -> void
+
+    # : (Inline::pending_store_entry) -> Symbol
+    def review_single_inline_entry: (Inline::pending_store_entry) -> Symbol
+
+    # : (String, Inline::pending_store_entry) -> Symbol
+    def process_inline_review_response: (String, Inline::pending_store_entry) -> Symbol
+
+    # : (Inline::pending_store_entry) -> void
+    def accept_inline_entry: (Inline::pending_store_entry) -> void
+
+    # : (Inline::pending_store_entry) -> void
+    def reject_inline_entry: (Inline::pending_store_entry) -> void
+
+    # : () -> void
+    def accept: () -> void
+
+    # : () -> void
+    def reject: () -> void
+
+    # : () -> void
+    def pending_list: () -> void
+
+    # : (Array[String]) -> void
+    def print_pending_files: (Array[String]) -> void
+
+    # : (Array[Inline::pending_store_entry]) -> void
+    def print_pending_inline: (Array[Inline::pending_store_entry]) -> void
+
+    # : () -> void
+    def status: () -> void
+
+    # : (String, String) -> void
+    def print_status_config: (String, String) -> void
+
+    # : (Array[String], Array[String], Array[Inline::pending_store_entry], Array[String]) -> void
+    def print_status_counts: (Array[String], Array[String], Array[Inline::pending_store_entry], Array[String]) -> void
+
+    # : (Array[String], Array[Inline::pending_store_entry]) -> void
+    def print_status_pending: (Array[String], Array[Inline::pending_store_entry]) -> void
+
+    # : (Array[[String, String]]) -> void
+    def print_status_entries: (Array[[ String, String ]]) -> void
+
+    # : () -> void
+    def clean: () -> void
+
+    # : () -> void
+    def help: () -> void
+
+    # : () -> void
+    def print_usage: () -> void
+
+    # : (String, Array[[String, String]]) -> void
+    def print_section: (String, Array[[ String, String ]]) -> void
+
+    # : () -> String
+    def header: () -> String
+
+    # : () -> void
+    def version: () -> void
+
+    # : () -> Array[[String, String]]
+    def help_commands: () -> Array[[ String, String ]]
+
+    # : () -> Array[[String, String]]
+    def help_options: () -> Array[[ String, String ]]
+
+    # : () -> Array[[String, String]]
+    def help_environment: () -> Array[[ String, String ]]
+
+    # : () -> Array[String]
+    def find_pending_files: () -> Array[String]
+
+    # : (String) -> void
+    def accept_file: (String) -> void
+
+    # : (String) -> void
+    def reject_file: (String) -> void
+
+    # : () -> void
+    def print_review_summary: () -> void
+  end
+end

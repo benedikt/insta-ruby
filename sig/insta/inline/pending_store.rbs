@@ -1,0 +1,41 @@
+# Generated from lib/insta/inline/pending_store.rb with RBS::Inline
+
+module Insta
+  module Inline
+    type pending_store_entry = { file: String, line: Integer, content: String, old_content: String, type: String }
+
+    module PendingStore
+      FILENAME: ::String
+
+      # : (file: String, line: Integer, content: String, old_content: String, type: Symbol) -> void
+      def self.add: (file: String, line: Integer, content: String, old_content: String, type: Symbol) -> void
+
+      # : () -> void
+      def self.flush!: () -> void
+
+      # : () -> Array[Inline::pending_store_entry]
+      def self.load: () -> Array[Inline::pending_store_entry]
+
+      # : () -> void
+      def self.clean!: () -> void
+
+      # : (Array[Inline::pending_store_entry]) -> void
+      def self.apply!: (Array[Inline::pending_store_entry]) -> void
+
+      # : (Array[Inline::pending_store_entry]) -> void
+      def self.remove!: (Array[Inline::pending_store_entry]) -> void
+
+      # : () -> bool
+      def self.any?: () -> bool
+
+      # : () -> Integer
+      def self.size: () -> Integer
+
+      # : () -> void
+      def self.clear!: () -> void
+
+      # : (Array[Inline::pending_store_entry], Array[Inline::pending_store_entry]) -> Array[Inline::pending_store_entry]
+      def self.merge_entries: (Array[Inline::pending_store_entry], Array[Inline::pending_store_entry]) -> Array[Inline::pending_store_entry]
+    end
+  end
+end

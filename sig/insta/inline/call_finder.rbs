@@ -1,0 +1,22 @@
+# Generated from lib/insta/inline/call_finder.rb with RBS::Inline
+
+module Insta
+  module Inline
+    class CallFinder < Prism::Visitor
+      METHODS: Array[Symbol]
+
+      attr_reader found_call: Prism::CallNode?
+
+      # : (Integer) -> void
+      def initialize: (Integer) -> void
+
+      # : (Prism::CallNode) -> void
+      def visit_call_node: (Prism::CallNode) -> void
+
+      private
+
+      # : (Prism::Node) -> bool
+      def covers_line?: (Prism::Node) -> bool
+    end
+  end
+end

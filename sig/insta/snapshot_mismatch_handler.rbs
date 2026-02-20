@@ -1,0 +1,12 @@
+# Generated from lib/insta/snapshot_mismatch_handler.rb with RBS::Inline
+
+module Insta
+  module SnapshotMismatchHandler
+    # Returns :updated, :force_passed, or :failed
+    # : (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, ?caller_line: String?) -> Symbol
+    def self.handle: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, ?caller_line: String?) -> Symbol
+
+    # : (String, String, String, Pathname, ?caller_line: String?) -> String
+    def self.failure_message: (String, String, String, Pathname, ?caller_line: String?) -> String
+  end
+end

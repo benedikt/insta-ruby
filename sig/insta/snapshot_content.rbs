@@ -1,0 +1,14 @@
+# Generated from lib/insta/snapshot_content.rb with RBS::Inline
+
+module Insta
+  module SnapshotContent
+    # : (String) -> String
+    def self.normalize: (String) -> String
+
+    # : (String, Integer) -> String
+    def self.indent: (String, Integer) -> String
+
+    # : (String) -> String
+    def self.strip_indent: (String) -> String
+  end
+end

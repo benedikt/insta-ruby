@@ -1,0 +1,10 @@
+# Generated from lib/insta/serializers/json.rb with RBS::Inline
+
+module Insta
+  module Serializers
+    class JSONSerializer < Base
+      # : (untyped) -> String
+      def self.serialize: (untyped) -> String
+    end
+  end
+end

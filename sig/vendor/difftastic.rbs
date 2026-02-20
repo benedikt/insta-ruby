@@ -1,0 +1,19 @@
+module Difftastic
+  class Differ
+    def initialize: (
+      ?background: Symbol?,
+      ?color: Symbol?,
+      ?syntax_highlight: Symbol?,
+      ?context: Integer?,
+      ?width: Integer?,
+      ?tab_width: Integer?,
+      ?parse_error_limit: Integer?,
+      ?underline_highlights: bool,
+      ?left_label: String?,
+      ?right_label: String?,
+      ?display: String
+    ) -> void
+
+    def diff_strings: (String, String, ?file_extension: String?) -> String
+  end
+end

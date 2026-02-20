@@ -1,0 +1,21 @@
+# Generated from lib/insta/serializers/base.rb with RBS::Inline
+
+module Insta
+  module Serializers
+    class Base
+      # : (untyped) -> String
+      def self.serialize: (untyped) -> String
+    end
+
+    REGISTRY: Hash[Symbol, singleton(Base)]
+
+    # : (Symbol, singleton(Base)) -> void
+    def self.register: (Symbol, singleton(Base)) -> void
+
+    # : (Symbol) -> singleton(Base)
+    def self.fetch: (Symbol) -> singleton(Base)
+
+    # : (Symbol, untyped) -> String
+    def self.serialize: (Symbol, untyped) -> String
+  end
+end

@@ -1,0 +1,6 @@
+# Generated from lib/minitest/insta_plugin.rb with RBS::Inline
+
+module Minitest
+  # : (Hash[Symbol, untyped]) -> void
+  def self.plugin_insta_init: (Hash[Symbol, untyped]) -> void
+end

@@ -1,0 +1,10 @@
+# Generated from lib/insta/rspec/hooks.rb with RBS::Inline
+
+module Insta
+  module RSpec
+    module Hooks
+      # : () -> void
+      def self.install!: () -> void
+    end
+  end
+end

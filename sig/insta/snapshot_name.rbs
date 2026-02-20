@@ -1,0 +1,17 @@
+# Generated from lib/insta/snapshot_name.rb with RBS::Inline
+
+module Insta
+  module SnapshotName
+    # : (String) -> String
+    def self.sanitize: (String) -> String
+
+    # : (String) -> String
+    def self.underscore: (String) -> String
+
+    # : (String) -> String
+    def self.strip_test_prefix: (String) -> String
+
+    # : (String, ?counter: Integer, ?options: Hash[Symbol, untyped]) -> String
+    def self.derive: (String, ?counter: Integer, ?options: Hash[Symbol, untyped]) -> String
+  end
+end

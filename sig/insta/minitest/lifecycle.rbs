@@ -1,0 +1,10 @@
+# Generated from lib/insta/minitest/lifecycle.rb with RBS::Inline
+
+module Insta
+  module Minitest
+    module Lifecycle
+      # : (Module) -> void
+      def self.included: (Module) -> void
+    end
+  end
+end

@@ -1,0 +1,48 @@
+# Generated from lib/insta/configuration.rb with RBS::Inline
+
+module Insta
+  class Configuration
+    type snapshot_filename_resolver = ^(test_name: String, counter: Integer, options: Hash[Symbol, untyped]) -> String
+
+    attr_accessor snapshot_path: String
+
+    attr_accessor diff_display: Symbol
+
+    attr_accessor diff_width: Integer?
+
+    attr_accessor diff_color: Symbol
+
+    attr_accessor update_mode: Symbol
+
+    attr_accessor default_serializer: Symbol
+
+    attr_accessor heredoc_identifier: String
+
+    attr_accessor ci_mode: Symbol
+
+    attr_accessor snapshot_extension: String
+
+    attr_accessor snapshot_sanitizer: (^(String) -> String)?
+
+    attr_accessor snapshot_filename: snapshot_filename_resolver?
+
+    attr_accessor snapshot_directory: (^(test_class: String) -> String)?
+
+    attr_accessor new_snapshot: Symbol
+
+    # : () -> void
+    def initialize: () -> void
+
+    # : () -> Symbol
+    def resolved_update_mode: () -> Symbol
+
+    # : () -> bool
+    def resolved_ci_mode?: () -> bool
+
+    # : () -> String
+    def resolved_diff_color: () -> String
+
+    # : () -> String
+    def resolved_diff_display: () -> String
+  end
+end
