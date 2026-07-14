@@ -1,6 +1,7 @@
 <div align="center">
-  <h1>📸 Insta</h1>
-  <h4>Snapshot testing for Ruby</h4>
+  <img src="https://github.com/marcoroth/insta-ruby/blob/main/assets/insta.png?raw=true" width="250" height="250">
+
+  <h4>Snapshot Testing for Ruby</h4>
 
   <p>Capture test output as snapshots and review changes interactively with difftastic-powered diffs.</p>
 
