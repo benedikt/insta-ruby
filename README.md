@@ -7,7 +7,7 @@
 
   <p>
     <a href="https://rubygems.org/gems/insta"><img alt="Gem Version" src="https://img.shields.io/gem/v/insta.svg"></a>
-    <a href="https://github.com/marcoroth/insta/blob/main/LICENSE.txt"><img alt="License" src="https://img.shields.io/github/license/marcoroth/insta"></a>
+    <a href="https://github.com/marcoroth/insta-ruby/blob/main/LICENSE.txt"><img alt="License" src="https://img.shields.io/github/license/marcoroth/insta-ruby"></a>
   </p>
 </div>
 

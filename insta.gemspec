@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.version = Insta::VERSION
   spec.authors = ["Marco Roth"]
   spec.email = ["marco.roth@intergga.ch"]
-  spec.homepage = "https://github.com/marcoroth/insta"
+  spec.homepage = "https://github.com/marcoroth/insta-ruby"
   spec.license = "MIT"
   spec.required_ruby_version = ">= 3.2.0"
 
@@ -17,8 +17,8 @@ Gem::Specification.new do |spec|
   DESCRIPTION
 
   spec.metadata["homepage_uri"] = spec.homepage
-  spec.metadata["source_code_uri"] = "https://github.com/marcoroth/insta"
-  spec.metadata["changelog_uri"] = "https://github.com/marcoroth/insta/releases"
+  spec.metadata["source_code_uri"] = "https://github.com/marcoroth/insta-ruby"
+  spec.metadata["changelog_uri"] = "https://github.com/marcoroth/insta-ruby/releases"
   spec.metadata["rubygems_mfa_required"] = "true"
 
   spec.files = Dir.chdir(__dir__) do
