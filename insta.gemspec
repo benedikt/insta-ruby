@@ -13,7 +13,7 @@ Gem::Specification.new do |spec|
 
   spec.summary = "Snapshot testing for Ruby"
   spec.description = <<~DESCRIPTION
-    Snapshot testing for Ruby with inline snapshots, difftastic diffs, and interactive review. Supports Minitest and RSpec."
+    Snapshot testing for Ruby with inline snapshots, difftastic diffs, and interactive review. Supports Minitest and RSpec.
   DESCRIPTION
 
   spec.metadata["homepage_uri"] = spec.homepage
