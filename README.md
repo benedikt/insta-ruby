@@ -19,6 +19,12 @@ When the output changes, you get a diff and the option to review and accept the 
 
 Supports **Minitest** and **RSpec**. Ships with an interactive review CLI and [difftastic](https://github.com/marcoroth/difftastic-ruby)-powered diffs. Extracted from [Herb](https://github.com/marcoroth/herb), inspired by the [insta](https://insta.rs) crate for Rust and [Vitest snapshots](https://vitest.dev/guide/snapshot).
 
+### When to reach for snapshots
+
+Snapshots shine when you want to assert the whole thing without writing an assertion for every detail: full JSON API responses, rendered views and HTML, ASTs and compiled output, CLI output, error messages. See that it changed, see how, then accept or reject.
+
+Insta is **not** a replacement for WebMock or VCR: those manage what goes *into* your code, Insta asserts what comes *out*. They compose well: a cassette pins the HTTP input while a snapshot reviews your code's output.
+
 ## Quick Start
 
 Add to your Gemfile:
@@ -59,9 +65,51 @@ end
 4. Accept, the snapshot is saved, the test passes on the next run
 5. When the output changes, the test fails again with a diff. Repeat from step 3
 
+Reviewing never re-runs your tests: pending snapshots are written at assertion time during the test run, so `insta review` and `insta accept` are pure file operations, instant even on a large suite. When one change touches many snapshots, that's one review session, not many hand-edits.
+
+## Serializers and Multiple Snapshots
+
+Snapshots aren't limited to strings. Pass a serializer to capture structured values, one snapshot where you'd otherwise write many assertions:
+
+```ruby
+def test_user_payload
+  user = { id: 42, name: "Ada", roles: [:admin, :author], active: true }
+
+  assert_snapshot(user, serializer: :yaml, name: "user_payload")
+  assert_snapshot(user.keys, serializer: :json, name: "user_keys")
+end
+```
+
+Available serializers: `:to_s` (default), `:inspect`, `:json`, `:yaml`. Use `name:` to keep multiple snapshots in a single test.
+
+## Redactions
+
+Volatile values like IDs and timestamps would make snapshots fail on every run. Redact them with jq-like selectors:
+
+```ruby
+assert_snapshot(
+  user,
+  serializer: :yaml,
+  redact: {
+    ".id" => "[id]",
+    ".**.created_at" => "[timestamp]"
+  }
+)
+```
+
+The snapshot stores the placeholder instead of the volatile value:
+
+```yaml
+:id: "[id]"
+:name: Ada
+:created_at: "[timestamp]"
+```
+
+Supported selectors: `.key`, `["key"]`, `[index]`, `[]` (all array items), `.*` (all hash values), `.**` (deep). Redactions operate on structured data, so use `serializer: :json` or `:yaml`. For volatile values embedded in plain strings (like a timestamp interpolated into rendered output), freeze time in the test (`travel_to` / Timecop), which composes naturally with snapshots.
+
 ## Inline Snapshots
 
-Inline snapshots store the expected value directly in the test file instead of a separate `.snap` file.
+Inline snapshots store the expected value directly in the test file instead of a separate `.snap` file. (Minitest: `assert_inline_snapshot`, RSpec: `match_inline_snapshot`.)
 
 ### Writing your first inline snapshot
 
@@ -137,12 +185,24 @@ Insta.configure do |config|
   config.diff_color = :auto                      # :auto, :always, :never
   config.default_serializer = :to_s              # :to_s, :inspect, :json, :yaml
   config.heredoc_identifier = "SNAP"             # heredoc identifier for inline snapshots
-  config.ci_mode = :auto                         # :auto, true, false — auto-detects CI environments
+  config.ci_mode = :auto                         # :auto, true, false (auto-detects CI environments)
   config.snapshot_sanitizer = nil                # optional Proc for custom filename sanitization
   config.snapshot_filename = nil                 # optional Proc for custom snapshot filenames
   config.snapshot_directory = nil                # optional Proc for custom snapshot directory per test class
 end
 ```
+
+### The `.insta.rb` config file
+
+`Insta.configure` in your test helper only affects test runs. The review CLI is a separate process, so to share configuration between both, put it in `.insta.rb` at your project root:
+
+```ruby
+Insta.configure do |config|
+  config.diff_display = :inline
+end
+```
+
+Both the test integrations and `bundle exec insta` load this file automatically. Settings like `diff_display`, `diff_width`, and `snapshot_path` then apply everywhere, including `insta review`.
 
 ### Custom Filename Sanitization
 
@@ -190,9 +250,26 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/marcor
 
 Everyone interacting in the Insta project's codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/marcoroth/insta/blob/main/CODE_OF_CONDUCT.md).
 
+## Prior Art
+
+Snapshot testing has a long lineage, and Insta stands on a lot of shoulders:
+
+- Approval testing is the original form of the idea: capture a known-good output, compare against it, "approve" changes. [Approval Tests](https://approvaltests.com) formalized the pattern across many languages; in Ruby, the [approvals](https://rubygems.org/gems/approvals) gem carries this tradition.
+- [Jest](https://jestjs.io/docs/snapshot-testing) popularized the term *snapshot testing* for the JavaScript world (auto-managed snapshot files, `toMatchSnapshot()`), and **[Vitest](https://vitest.dev/guide/snapshot)** refined it, including inline snapshots that rewrite your test file.
+- [insta](https://insta.rs) (Armin Ronacher, Rust) added the piece the others were missing: a first-class interactive review workflow (`cargo insta review`) with pending snapshot files, redactions, and inline snapshots. Insta for Ruby takes its name, its flow, and its look and feel from it.
+- In Ruby, [rspec-snapshot](https://rubygems.org/gems/rspec-snapshot) and [snapshot_testing](https://rubygems.org/gems/snapshot_testing) provide snapshot matchers for their respective frameworks.
+
+What Insta adds to the Ruby ecosystem is the combination: framework-agnostic (Minitest *and* RSpec), the interactive review CLI as the center of the workflow (never re-running your tests), structural [difftastic](https://github.com/marcoroth/difftastic-ruby) diffs, inline snapshots rewritten via [Prism](https://github.com/ruby/prism), redaction selectors, and CI-aware update modes.
+
 ## Acknowledgments
 
-Extracted from [herb](https://github.com/marcoroth/herb)'s snapshot test infrastructure. Thanks to [Renan Garcia](https://github.com/renan-garcia) for transferring the `insta` gem name. The previous gem is available at [`renan-garcia/insta`](https://github.com/renan-garcia/insta).
+Extracted from [herb](https://github.com/marcoroth/herb)'s snapshot test infrastructure, where a hand-rolled `SnapshotUtils` module proved the need across thousands of parser, lexer, and compiler tests.
+
+The concept and the interactive review workflow are inspired by [insta](https://insta.rs), Armin Ronacher's snapshot testing library for Rust. Inline snapshot ergonomics are inspired by [Vitest](https://vitest.dev/guide/snapshot).
+
+Diffing is powered by [difftastic](https://github.com/marcoroth/difftastic-ruby) and [pretty_please](https://github.com/joeldrapper/pretty_please), the same stack behind [minitest-difftastic](https://github.com/marcoroth/minitest-difftastic).
+
+Thanks to [Renan Garcia](https://github.com/renan-garcia) for transferring the `insta` gem name. The previous gem is available at [`renan-garcia/insta`](https://github.com/renan-garcia/insta).
 
 ## License
 

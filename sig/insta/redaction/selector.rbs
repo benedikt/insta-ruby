@@ -1,0 +1,58 @@
+# Generated from lib/insta/redaction/selector.rb with RBS::Inline
+
+module Insta
+  module Redaction
+    class Selector
+      class Segment < Struct[untyped]
+        attr_accessor type(): untyped
+
+        attr_accessor value(): untyped
+
+        def self.new: (?type: untyped, ?value: untyped) -> instance
+                    | ({ ?type: untyped, ?value: untyped }) -> instance
+      end
+
+      SEGMENT_TYPES: Array[Symbol]
+
+      attr_reader segments: Array[Segment]
+
+      # : (String) -> void
+      def initialize: (String) -> void
+
+      # : (Array[{ type: Symbol, value: untyped }]) -> bool
+      def matches?: (Array[{ type: Symbol, value: untyped }]) -> bool
+
+      private
+
+      # : (String) -> Array[Segment]
+      def parse: (String) -> Array[Segment]
+
+      # : (String, Integer, Array[Segment]) -> Integer
+      def parse_dot_segment: (String, Integer, Array[Segment]) -> Integer
+
+      # : (String, Integer, Array[Segment]) -> Integer
+      def parse_wildcard_segment: (String, Integer, Array[Segment]) -> Integer
+
+      # : (String, Integer, Array[Segment]) -> Integer
+      def parse_key_segment: (String, Integer, Array[Segment]) -> Integer
+
+      # : (String, Integer, Array[Segment]) -> Integer
+      def parse_bracket_segment: (String, Integer, Array[Segment]) -> Integer
+
+      # : (String, Integer, Array[Segment]) -> Integer
+      def parse_quoted_key_segment: (String, Integer, Array[Segment]) -> Integer
+
+      # : (String, Integer, Array[Segment]) -> Integer
+      def parse_index_segment: (String, Integer, Array[Segment]) -> Integer
+
+      # : (Array[{ type: Symbol, value: untyped }], Integer) -> bool
+      def deep_wildcard_match?: (Array[{ type: Symbol, value: untyped }], Integer) -> bool
+
+      # : (Array[{ type: Symbol, value: untyped }], Array[Segment]) -> bool
+      def exact_match?: (Array[{ type: Symbol, value: untyped }], Array[Segment]) -> bool
+
+      # : (Segment, { type: Symbol, value: untyped }) -> bool
+      def segment_matches?: (Segment, { type: Symbol, value: untyped }) -> bool
+    end
+  end
+end

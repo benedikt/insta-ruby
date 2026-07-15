@@ -8,8 +8,8 @@ module Insta
 
         attr_reader failure_message: String?
 
-        # : (String?) -> void
-        def initialize: (String?) -> void
+        # : (String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> void
+        def initialize: (String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> void
 
         # : (untyped) -> bool
         def matches?: (untyped) -> bool
@@ -25,6 +25,9 @@ module Insta
         # : (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata) -> bool
         def handle_new_snapshot: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata) -> bool
 
+        # : (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, Snapshot, String?, untyped) -> bool
+        def handle_type_mismatch: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, Snapshot, String?, untyped) -> bool
+
         # : (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, String, String?) -> bool
         def handle_mismatch: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, String, String?) -> bool
 
@@ -37,8 +40,8 @@ module Insta
 
         attr_reader failure_message: String?
 
-        # : (String?) -> void
-        def initialize: (String?) -> void
+        # : (String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> void
+        def initialize: (String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> void
 
         # : (untyped) -> bool
         def matches?: (untyped) -> bool
@@ -58,11 +61,11 @@ module Insta
         def record_failure: (String) -> false
       end
 
-      # : (?String?) -> MatchSnapshot
-      def match_snapshot: (?String?) -> MatchSnapshot
+      # : (?String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> MatchSnapshot
+      def match_snapshot: (?String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> MatchSnapshot
 
-      # : (?String?) -> MatchInlineSnapshot
-      def match_inline_snapshot: (?String?) -> MatchInlineSnapshot
+      # : (?String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> MatchInlineSnapshot
+      def match_inline_snapshot: (?String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> MatchInlineSnapshot
     end
   end
 end

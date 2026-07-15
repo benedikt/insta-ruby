@@ -10,17 +10,21 @@ module Insta
 
         attr_reader :failure_message #: String?
 
-        #: (String?) -> void
-        def initialize(name = nil)
+        #: (String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> void
+        def initialize(name = nil, serializer: nil, redact: nil)
           @name = name
+          @serializer = serializer
+          @redact = redact
           @failure_message = nil
         end
 
         #: (untyped) -> bool
         def matches?(actual)
           @actual = actual
+          expression = actual.class.name
 
-          serializer_name = Insta.configuration.default_serializer
+          actual = Redaction::Applicator.apply(actual, @redact) if @redact
+          serializer_name = @serializer || Insta.configuration.default_serializer
           serialized = Serializers.serialize(serializer_name, actual)
           content = SnapshotContent.normalize(serialized)
 
@@ -33,10 +37,14 @@ module Insta
           snapshot_file = resolve_snapshot_file(example, test_class, test_method)
           path = @name ? snapshot_file.named_path(@name) : snapshot_file.path_for
 
-          metadata = { "source" => "#{test_class} #{test_method}" }
+          metadata = { "source" => "#{test_class} #{test_method}", "expression" => expression }
           existing = snapshot_file.read(path)
 
           return handle_new_snapshot(snapshot_file, path, content, metadata) unless existing
+
+          if existing.expression && existing.expression != expression
+            return handle_type_mismatch(snapshot_file, path, content, metadata, existing, expression, example)
+          end
 
           expected = SnapshotContent.normalize(existing.content)
           return true if content == expected
@@ -90,6 +98,23 @@ module Insta
           true
         end
 
+        #: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, Snapshot, String?, untyped) -> bool
+        def handle_type_mismatch(snapshot_file, path, content, metadata, existing, expression, example)
+          expected = SnapshotContent.normalize(existing.content)
+          caller_line = example.location
+          result = SnapshotMismatchHandler.handle(snapshot_file, path, content, metadata, expected, caller_line: caller_line)
+
+          case result
+          when :updated, :force_passed
+            true
+          else
+            record_failure(
+              "Snapshot type mismatch: snapshot was #{existing.expression} but got #{expression}\n" \
+              "Run `bundle exec insta review` or delete the snapshot file and re-run the test to update it."
+            )
+          end
+        end
+
         #: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, String, String?) -> bool
         def handle_mismatch(snapshot_file, path, content, metadata, expected, label, caller_line = nil)
           result = SnapshotMismatchHandler.handle(snapshot_file, path, content, metadata, expected,
@@ -119,9 +144,11 @@ module Insta
 
         attr_reader :failure_message #: String?
 
-        #: (String?) -> void
-        def initialize(expected = nil)
+        #: (String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> void
+        def initialize(expected = nil, serializer: nil, redact: nil)
           @expected = expected
+          @serializer = serializer
+          @redact = redact
           @failure_message = nil
         end
 
@@ -129,7 +156,8 @@ module Insta
         def matches?(actual)
           @actual = actual
 
-          serializer_name = Insta.configuration.default_serializer
+          actual = Redaction::Applicator.apply(actual, @redact) if @redact
+          serializer_name = @serializer || Insta.configuration.default_serializer
           serialized = Serializers.serialize(serializer_name, actual)
           content = SnapshotContent.normalize(serialized)
 
@@ -206,14 +234,14 @@ module Insta
         end
       end
 
-      #: (?String?) -> MatchSnapshot
-      def match_snapshot(name = nil)
-        MatchSnapshot.new(name)
+      #: (?String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> MatchSnapshot
+      def match_snapshot(name = nil, serializer: nil, redact: nil)
+        MatchSnapshot.new(name, serializer: serializer, redact: redact)
       end
 
-      #: (?String?) -> MatchInlineSnapshot
-      def match_inline_snapshot(expected = nil)
-        MatchInlineSnapshot.new(expected)
+      #: (?String?, ?serializer: Symbol?, ?redact: Hash[String, untyped]?) -> MatchInlineSnapshot
+      def match_inline_snapshot(expected = nil, serializer: nil, redact: nil)
+        MatchInlineSnapshot.new(expected, serializer: serializer, redact: redact)
       end
     end
   end

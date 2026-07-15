@@ -79,4 +79,28 @@ class AssertionsTest < Minitest::Spec
     assert_includes content, '"key"'
     assert_includes content, '"value"'
   end
+
+  test "snapshot metadata includes expression field" do
+    assert_snapshot("hello world", name: "expression_test")
+
+    snap_files = Dir.glob(File.join(@tmpdir, "**", "expression_test.snap"))
+    assert_equal 1, snap_files.length
+
+    snapshot = Insta::Snapshot.parse(File.read(snap_files.first))
+    assert_equal "String", snapshot.expression
+  end
+
+  test "type change fails even when content matches" do
+    assert_snapshot("2", name: "type_change")
+
+    Insta.configure { |c| c.update_mode = :no }
+
+    error = assert_raises(Minitest::Assertion) do
+      assert_snapshot(2, name: "type_change")
+    end
+
+    assert_includes error.message, "Snapshot type mismatch"
+    assert_includes error.message, "String"
+    assert_includes error.message, "Integer"
+  end
 end

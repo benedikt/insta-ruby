@@ -8,13 +8,16 @@ module Insta
       #|   untyped,
       #|   ?name: String?,
       #|   ?serializer: Symbol?,
+      #|   ?redact: Hash[String, untyped]?,
       #|   ?input: String?,
       #|   ?description: String?,
       #|   ?info: Hash[String, untyped]?,
       #|   ?options: Hash[Symbol, untyped]?
       #| ) -> void
-      def assert_snapshot(actual, name: nil, serializer: nil, input: nil, description: nil, info: nil, options: nil)
+      def assert_snapshot(actual, name: nil, serializer: nil, redact: nil, input: nil, description: nil, info: nil, options: nil)
+        expression = actual.class.name
         serializer_name = serializer || Insta.configuration.default_serializer
+        actual = Redaction::Applicator.apply(actual, redact) if redact
         serialized = Serializers.serialize(serializer_name, actual)
         content = SnapshotContent.normalize(serialized)
 
@@ -34,14 +37,25 @@ module Insta
                end
 
         metadata = build_metadata(
-          test_class, test_method,
-          input: input, description: description, info: info, options: options
+          test_class,
+          test_method,
+          expression: expression,
+          input: input,
+          description: description,
+          info: info,
+          options: options
         )
 
         existing = snapshot_file.read(path)
 
         unless existing
           handle_missing_snapshot(snapshot_file, path, content, metadata)
+          return
+        end
+
+        if existing.expression && existing.expression != expression
+          caller_line = find_test_caller
+          handle_type_mismatch(snapshot_file, path, content, metadata, existing, expression, caller_line)
           return
         end
 
@@ -59,10 +73,12 @@ module Insta
       #: (
       #|   untyped,
       #|   ?String?,
-      #|   ?serializer: Symbol?
+      #|   ?serializer: Symbol?,
+      #|   ?redact: Hash[String, untyped]?
       #| ) -> void
-      def assert_inline_snapshot(actual, expected = nil, serializer: nil)
+      def assert_inline_snapshot(actual, expected = nil, serializer: nil, redact: nil)
         serializer_name = serializer || Insta.configuration.default_serializer
+        actual = Redaction::Applicator.apply(actual, redact) if redact
         serialized = Serializers.serialize(serializer_name, actual)
         content = SnapshotContent.normalize(serialized)
 
@@ -126,11 +142,12 @@ module Insta
         (test_location || locations.first).to_s
       end
 
-      #: (String, String, ?input: String?, ?description: String?,
+      #: (String, String, ?expression: String?, ?input: String?, ?description: String?,
       #|   ?info: Hash[String, untyped]?, ?options: Hash[Symbol, untyped]?) -> Snapshot::snapshot_metadata
-      def build_metadata(test_class, test_method, input: nil, description: nil, info: nil, options: nil)
+      def build_metadata(test_class, test_method, expression: nil, input: nil, description: nil, info: nil, options: nil)
         metadata = { "source" => "#{test_class}##{test_method}" }
 
+        metadata["expression"] = expression if expression
         metadata["input"] = input if input
         metadata["description"] = description if description
         metadata["options"] = options if options && !options.empty?
@@ -165,6 +182,20 @@ module Insta
         snapshot_file.write(path, content, metadata)
 
         pass
+      end
+
+      #: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, Snapshot, String?, String) -> void
+      def handle_type_mismatch(snapshot_file, path, content, metadata, existing, expression, caller_line)
+        expected = SnapshotContent.normalize(existing.content)
+        result = SnapshotMismatchHandler.handle(snapshot_file, path, content, metadata, expected, caller_line: caller_line)
+
+        case result
+        when :updated, :force_passed
+          pass
+        else
+          flunk "Snapshot type mismatch: snapshot was #{existing.expression} but got #{expression}\n" \
+                "Run `bundle exec insta review` or delete the snapshot file and re-run the test to update it."
+        end
       end
 
       #: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, String, String, String) -> void

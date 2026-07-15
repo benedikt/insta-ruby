@@ -8,19 +8,21 @@ module Insta
       # |   untyped,
       # |   ?name: String?,
       # |   ?serializer: Symbol?,
+      # |   ?redact: Hash[String, untyped]?,
       # |   ?input: String?,
       # |   ?description: String?,
       # |   ?info: Hash[String, untyped]?,
       # |   ?options: Hash[Symbol, untyped]?
       # | ) -> void
-      def assert_snapshot: (untyped actual, ?name: untyped, ?serializer: untyped, ?input: untyped, ?description: untyped, ?info: untyped, ?options: untyped) -> untyped
+      def assert_snapshot: (untyped actual, ?name: untyped, ?serializer: untyped, ?redact: untyped, ?input: untyped, ?description: untyped, ?info: untyped, ?options: untyped) -> untyped
 
       # : (
       # |   untyped,
       # |   ?String?,
-      # |   ?serializer: Symbol?
+      # |   ?serializer: Symbol?,
+      # |   ?redact: Hash[String, untyped]?
       # | ) -> void
-      def assert_inline_snapshot: (untyped actual, ?untyped expected, ?serializer: untyped) -> untyped
+      def assert_inline_snapshot: (untyped actual, ?untyped expected, ?serializer: untyped, ?redact: untyped) -> untyped
 
       private
 
@@ -30,12 +32,15 @@ module Insta
       # : () -> String
       def find_test_caller: () -> String
 
-      # : (String, String, ?input: String?, ?description: String?,
+      # : (String, String, ?expression: String?, ?input: String?, ?description: String?,
       # |   ?info: Hash[String, untyped]?, ?options: Hash[Symbol, untyped]?) -> Snapshot::snapshot_metadata
-      def build_metadata: (untyped test_class, untyped test_method, ?input: untyped, ?description: untyped, ?info: untyped, ?options: untyped) -> untyped
+      def build_metadata: (untyped test_class, untyped test_method, ?expression: untyped, ?input: untyped, ?description: untyped, ?info: untyped, ?options: untyped) -> untyped
 
       # : (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata) -> void
       def handle_missing_snapshot: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata) -> void
+
+      # : (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, Snapshot, String?, String) -> void
+      def handle_type_mismatch: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, Snapshot, String?, String) -> void
 
       # : (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, String, String, String) -> void
       def handle_snapshot_mismatch: (SnapshotFile, Pathname, String, Snapshot::snapshot_metadata, String, String, String, String) -> void

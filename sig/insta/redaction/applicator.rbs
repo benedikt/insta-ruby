@@ -1,0 +1,22 @@
+# Generated from lib/insta/redaction/applicator.rb with RBS::Inline
+
+module Insta
+  module Redaction
+    class Applicator
+      # : (untyped, Hash[String, untyped]?) -> untyped
+      def self.apply: (untyped, Hash[String, untyped]?) -> untyped
+
+      # : (untyped) -> untyped
+      def self.deep_dup: (untyped) -> untyped
+
+      # : (untyped, untyped, Hash[Selector, untyped]) -> void
+      def self.walk: (untyped, untyped, Hash[Selector, untyped]) -> void
+
+      # : (untyped, Hash[Selector, untyped]) -> untyped
+      def self.find_match: (untyped, Hash[Selector, untyped]) -> untyped
+
+      # : (untyped, untyped) -> untyped
+      def self.apply_replacement: (untyped, untyped) -> untyped
+    end
+  end
+end

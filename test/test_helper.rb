@@ -4,6 +4,8 @@ $LOAD_PATH.unshift File.expand_path("../lib", __dir__)
 
 require "insta/minitest"
 require "maxitest/autorun"
+
+Insta::CI::CI_ENV_VARS.each { |var| ENV.delete(var) }
 require "minitest/spec"
 
 Minitest::Spec::DSL.send(:alias_method, :test, :it)

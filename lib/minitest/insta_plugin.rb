@@ -12,6 +12,6 @@ module Minitest
   end
 end
 
-at_exit do
+Minitest.after_run do
   Insta::PendingReporter.flush_and_report!
 end

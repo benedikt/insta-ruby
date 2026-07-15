@@ -58,6 +58,8 @@ Metrics/AbcSize:
   Max: 30
   Exclude:
     - lib/insta/cli.rb
+    - lib/insta/minitest/assertions.rb
+    - lib/insta/rspec/matchers.rb
 
 Metrics/PerceivedComplexity:
   Max: 15
@@ -67,6 +69,7 @@ Metrics/ModuleLength:
     - lib/insta/minitest/assertions.rb
 
 Metrics/ClassLength:
+  Max: 150
   Exclude:
     - lib/insta/cli.rb
     - lib/insta/inline/file_patcher.rb
